@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SaleManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Description" Type="nvarchar" MaxLength="250" />
+    <Property Name="CreateAt" Type="datetime" />
+    <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="250" />
+    <Property Name="Contact" Type="nvarchar" MaxLength="15" />
+    <Property Name="CreateAt" Type="datetime" />
+    <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Discount">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="tinyint" Nullable="false" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="StartDate" Type="datetime" Nullable="false" />
+    <Property Name="EndDate" Type="datetime" Nullable="false" />
+    <Property Name="CreateAt" Type="datetime" />
+    <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="Barcode" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Barcode" />
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="Barcode" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="Price" Type="money" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="SupplierId" Type="int" />
+    <Property Name="CreateAt" Type="datetime" />
+    <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="Pin" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="ProductHistory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BuyDate" Type="datetime" />
+    <Property Name="ExDate" Type="datetime" />
+    <Property Name="SupplierId" Type="int" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="Price" Type="money" />
+    <Property Name="CreateAt" Type="datetime" />
+    <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="Barcode" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Supplier">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="250" />
+    <Property Name="Contact1" Type="nvarchar" MaxLength="15" />
+    <Property Name="Contact2" Type="nvarchar" MaxLength="15" />
+    <Property Name="CreateAt" Type="datetime" />
+    <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="SysParam">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Key" Type="nvarchar" MaxLength="50" />
+    <Property Name="Value" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Transaction">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="tinyint" />
+    <Property Name="CustomerId" Type="int" />
+    <Property Name="SuplierId" Type="int" />
+    <Property Name="IsPayment" Type="tinyint" />
+    <Property Name="Amount" Type="money" />
+    <Property Name="Payment" Type="money" />
+    <Property Name="PayBack" Type="money" />
+    <Property Name="BillNumber" Type="int" />
+    <Property Name="CreateAt" Type="datetime" />
+    <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'HungTest.dbo.TransactionDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="TransactionDetail">
+    <Key>
+      <PropertyRef Name="Barcode" />
+      <PropertyRef Name="TracsactionId" />
+    </Key>
+    <Property Name="Barcode" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="TracsactionId" Type="int" Nullable="false" />
+    <Property Name="SuplierId" Type="int" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="IsPayment" Type="tinyint" />
+    <Property Name="Amount" Type="money" />
+    <Property Name="CreateAt" Type="datetime" />
+    <Property Name="CreateBy" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityContainer Name="SaleManagerModelStoreContainer">
+    <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Discount" EntityType="Self.Discount" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductHistory" EntityType="Self.ProductHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SysParam" EntityType="Self.SysParam" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TransactionDetail" EntityType="Self.TransactionDetail" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [TransactionDetail].[Barcode] AS [Barcode], 
+    [TransactionDetail].[TracsactionId] AS [TracsactionId], 
+    [TransactionDetail].[SuplierId] AS [SuplierId], 
+    [TransactionDetail].[Quantity] AS [Quantity], 
+    [TransactionDetail].[IsPayment] AS [IsPayment], 
+    [TransactionDetail].[Amount] AS [Amount], 
+    [TransactionDetail].[CreateAt] AS [CreateAt], 
+    [TransactionDetail].[CreateBy] AS [CreateBy]
+    FROM [dbo].[TransactionDetail] AS [TransactionDetail]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

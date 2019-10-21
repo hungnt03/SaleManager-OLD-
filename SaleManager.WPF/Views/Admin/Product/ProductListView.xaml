@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="SaleManager.WPF.Views.Admin.Product.ProductListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SaleManager.WPF.Views.Admin.Product"
+             xmlns:cvt="clr-namespace:SaleManager.WPF.Utilities.Converters"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <cvt:MoneyConverter x:Key="moneyConverter"/>
+    </UserControl.Resources>
+    <StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,5">
+            <Button Style="{StaticResource MaterialDesignRaisedButton}" Width="70" Margin="5,0,5,0"
+                    HorizontalAlignment="Right" 
+                    Command="{Binding AddProductCommand}">
+                <materialDesign:PackIcon Kind="ShoppingCartPlus" Height="25" Width="25"/>
+            </Button>
+            <Button Style="{StaticResource MaterialDesignRaisedButton}" Width="70" HorizontalAlignment="Right" Margin="5,0,5,0" Background="#c62828">
+                <materialDesign:PackIcon Kind="Delete" Height="25" Width="25"/>
+            </Button>
+        </StackPanel>
+        
+        <DataGrid
+        ItemsSource="{Binding Products}"
+        SelectedItem="{Binding ProductSelected}"
+        CanUserSortColumns="True"
+        CanUserAddRows="False"
+        AutoGenerateColumns="False"
+        materialDesign:DataGridAssist.CellPadding="13 8 8 8"
+        materialDesign:DataGridAssist.ColumnHeaderPadding="8">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn
+                Binding="{Binding IsSelected}"
+                ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
+                EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}">
+                    <DataGridCheckBoxColumn.Header>
+                        <!--padding to allow hit test to pass thru for sorting -->
+                        <Border Background="Transparent" Padding="6 0 6 0" HorizontalAlignment="Center">
+                            <CheckBox HorizontalAlignment="Center" 
+                                  DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext}"
+                                  IsChecked="{Binding IsAllItemsSelected}" />
+                        </Border>
+                    </DataGridCheckBoxColumn.Header>
+                </DataGridCheckBoxColumn>
+                <DataGridTextColumn
+                Binding="{Binding Name}"
+                Header="Tên sản phẩm" 
+                IsReadOnly="True"/>
+                <!-- if you want to use the pop up style (MaterialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn -->
+                <materialDesign:MaterialDataGridTextColumn
+                Binding="{Binding Quantity}"
+                Header="Số luợng" 
+                IsReadOnly="True"/>
+                <!-- set a max length to get an indicator in the editor -->
+                <materialDesign:MaterialDataGridTextColumn
+                Binding="{Binding Price}"
+                Header="Giá"
+                IsReadOnly="True"/>
+                <materialDesign:MaterialDataGridTextColumn
+                Binding="{Binding Barcode}"
+                Header="Barcode"
+                IsReadOnly="True"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29324.140
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaleManager.WebApi", "SaleManager.WebApi\SaleManager.WebApi.csproj", "{7EF4B92B-33A2-4FB1-BC6C-F4ED41FA2FB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaleManager.WPF", "SaleManager.WPF\SaleManager.WPF.csproj", "{79403ABD-C98F-4B35-8958-9C89009C6157}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7EF4B92B-33A2-4FB1-BC6C-F4ED41FA2FB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EF4B92B-33A2-4FB1-BC6C-F4ED41FA2FB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EF4B92B-33A2-4FB1-BC6C-F4ED41FA2FB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EF4B92B-33A2-4FB1-BC6C-F4ED41FA2FB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79403ABD-C98F-4B35-8958-9C89009C6157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79403ABD-C98F-4B35-8958-9C89009C6157}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79403ABD-C98F-4B35-8958-9C89009C6157}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79403ABD-C98F-4B35-8958-9C89009C6157}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CF07D7E8-7D17-4EE6-B872-85B02B0783B8}
+	EndGlobalSection
+EndGlobal
