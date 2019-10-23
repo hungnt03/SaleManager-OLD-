@@ -189,7 +189,7 @@ public class CodeStringGenerator
 
     public string NavigationProperty(NavigationProperty navProp)
     {
-        var endType = _typeMapper.GetTypeName(navProp.ToEndMember.GetEntityType());
+        var endType = _typeMapper.GetTypeName(navProp.ToEndMember.GeProductType());
         return string.Format(
             CultureInfo.InvariantCulture,
             "{0} {1} {2} {{ {3}get; {4}set; }}",

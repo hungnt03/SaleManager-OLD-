@@ -11,9 +11,11 @@ namespace SaleManager.WebApi.DataContext
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Product
     {
+        [Key]
         public string Barcode { get; set; }
         public string Name { get; set; }
         public Nullable<int> Quantity { get; set; }

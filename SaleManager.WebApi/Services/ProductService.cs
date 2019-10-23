@@ -12,12 +12,12 @@ namespace SaleManager.WebApi.Services
 {
     public interface IProductService
     {
-        Task<List<ProductModel>> GetProducts();
-        Task<ProductModel> GetProduct(string barcodeId);
-        Task<List<ProductModel>> GetProduct(ProductCondModel condition);
-        string CreateProduct(ProductInsertModel model);
-        string UpdateProduct(ProductUpdateModel model);
-        void DeleteProduct(string barcodeId);
+        //Task<List<ProductModel>> GetProducts();
+        //Task<ProductModel> GetProduct(string barcodeId);
+        //Task<List<ProductModel>> GetProduct(ProductCondModel condition);
+        //string CreateProduct(ProductInsertModel model);
+        //string UpdateProduct(ProductUpdateModel model);
+        //void DeleteProduct(string barcodeId);
     }
     public class ProductService : IProductService
     {
@@ -69,39 +69,39 @@ namespace SaleManager.WebApi.Services
             return query;
         }
 
-        public string CreateProduct(ProductInsertModel model)
-        {
-            Product product = new Product()
-            {
-                Name = model.Name,
-                Quantity = model.Quantity,
-                Price = model.Price
-            };
-            product.SupplierId = model.SupplierId;
-            product.CategoryId = model.CategoryId;
-            product.CreateAt = DateTime.Now;
-            product.CreateBy = "";
+        //public string CreateProduct(ProductInsertModel model)
+        //{
+        //    Product product = new Product()
+        //    {
+        //        Name = model.Name,
+        //        Quantity = model.Quantity,
+        //        Price = model.Price
+        //    };
+        //    product.SupplierId = model.SupplierId;
+        //    product.CategoryId = model.CategoryId;
+        //    product.CreateAt = DateTime.Now;
+        //    product.CreateBy = "";
 
-            BarcodeHelper barcodeHelper = new BarcodeHelper();
-            product.Barcode = barcodeHelper.GenerateBarcode();
+        //    BarcodeHelper barcodeHelper = new BarcodeHelper();
+        //    product.Barcode = barcodeHelper.GenerateBarcode();
 
-            _context.Product.Add(product);
-            _context.SaveChanges();
+        //    _context.Product.Add(product);
+        //    _context.SaveChanges();
 
-            return product.Barcode;
-        }
+        //    return product.Barcode;
+        //}
 
-        public string UpdateProduct(ProductUpdateModel model)
-        {
-            var product = _context.Product.Where(c=>c.Barcode.Equals(model.Barcode)).FirstOrDefault();
-            product.Name = model.Name;
-            product.Quantity = model.Quantity;
-            product.Price = model.Price;
-            product.CategoryId = model.CategoryId;
-            product.SupplierId = model.SupplierId;
-            _context.SaveChanges();
-            return product.Barcode;
-        }
+        //public string UpdateProduct(ProductUpdateModel model)
+        //{
+        //    var product = _context.Product.Where(c=>c.Barcode.Equals(model.Barcode)).FirstOrDefault();
+        //    product.Name = model.Name;
+        //    product.Quantity = model.Quantity;
+        //    product.Price = model.Price;
+        //    product.CategoryId = model.CategoryId;
+        //    product.SupplierId = model.SupplierId;
+        //    _context.SaveChanges();
+        //    return product.Barcode;
+        //}
 
         public void DeleteProduct(string barcodeId)
         {

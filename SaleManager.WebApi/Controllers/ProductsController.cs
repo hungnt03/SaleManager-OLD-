@@ -10,21 +10,22 @@ using System.Web.Http;
 using System.Data.Entity;
 using SaleManager.WebApi.Infrastructures;
 using SaleManager.WebApi.Services;
+using SaleManager.WebApi.Repositories;
 
 namespace SaleManager.WebApi.Controllers
 {
     public class ProductsController : ApiController
     {
-        private readonly IProductService _productService;
-        public ProductsController(ProductService productService)
+        private UnitOfWork _unitOfWork;
+        public ProductsController(UnitOfWork unitOfWork)
         {
-            _productService = productService;
+            _unitOfWork = unitOfWork;
         }
 
         // GET: api/Products
-        public async Task<IHttpActionResult> GetAll()
+        public async Task<IHttpActionResult> Index()
         {
-            var results = await _productService.GetProducts();
+            var results = await _unitOfWork.ProductRepository.Get();
 
             if (results == null)
                 return NoContentResult.NotFound("Not found");
@@ -34,7 +35,7 @@ namespace SaleManager.WebApi.Controllers
 
         // GET api/Products/5
         [HttpPost]
-        public async Task<IHttpActionResult> Product(ProductCondModel condition)
+        public async Task<IHttpActionResult> Details(ProductCondModel condition)
         {
             if (!ModelState.IsValid)
             {
@@ -43,59 +44,80 @@ namespace SaleManager.WebApi.Controllers
 
             if (!string.IsNullOrEmpty(condition.Barcode))
             {
-                var result = await _productService.GetProduct(condition.Barcode);
+                var result = _unitOfWork.ProductRepository.GetByID(condition.Barcode);
                 return Ok(result);
             }
             else
             {
-                var results = await _productService.GetProduct(condition);
+                var query = await _unitOfWork.ProductRepository.Get();
+                List<Product> results = new List<Product>();
+                foreach(var elm in query)
+                {
+                    var valid = true;
+                    if (!string.IsNullOrEmpty(condition.Name) && !elm.Name.Contains(condition.Name))
+                        valid = false;
+                    if (condition.FromPrice != 0 && !(elm.Price>=condition.FromPrice))
+                        valid = false;
+                    if (condition.ToPrice!=0 && !(elm.Price <= condition.ToPrice))
+                        valid = false;
+                    if (condition.CategoryId!=0 && elm.CategoryId != condition.CategoryId)
+                        valid = false;
+                    if (condition.SupplierId != 0 && elm.SupplierId != condition.SupplierId)
+                        valid = false;
+                    if (valid)
+                        results.Add(elm);
+                }
                 return Ok(results);
             }
         }
 
         [HttpPost]
-        public IHttpActionResult Insert(ProductInsertModel product)
+        public IHttpActionResult Create(ProductModel model)
         {
-            if (product == null)
+            if (model == null)
                 return BadRequest();
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var currentBarcde = _productService.CreateProduct(product);
-            return CreatedAtRoute("Product", new { id = currentBarcde }, new ProductModel() { 
-                Barcode= currentBarcde,
-                Name = product.Name,
-                Quantity = product.Quantity,
-                Price = product.Price,
-            });
+            Product product = model.Generate();
+            BarcodeHelper barcodeHelper = new BarcodeHelper();
+            product.Barcode = barcodeHelper.GenerateBarcode();
+
+            _unitOfWork.ProductRepository.Insert(product);
+            _unitOfWork.Save();
+
+            return Ok(product);
         }
 
         [HttpPost]
-        public IHttpActionResult Update(ProductUpdateModel product)
+        public IHttpActionResult Edit(ProductModel model)
         {
-            if (product == null)
+            if (model == null)
                 return BadRequest();
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var currentBarcde = _productService.UpdateProduct(product);
-            return Ok(new ProductModel()
-            {
-                Barcode = currentBarcde,
-                Name = product.Name,
-                Quantity = product.Quantity,
-                Price = product.Price,
-            });
+            var product = _unitOfWork.ProductRepository.GetByID(model.Barcode);
+            if (product == null)
+                return NotFound();
+
+            model.Generate(ref product);
+
+            _unitOfWork.ProductRepository.Update(product);
+            _unitOfWork.Save();
+            return Ok(product);
         }
 
         [HttpPost]
-        public IHttpActionResult Delete(string barcodeId)
+        public IHttpActionResult Delete(ProductModel model)
         {
-            if (string.IsNullOrEmpty(barcodeId))
+            if (string.IsNullOrEmpty(model.Barcode))
                 return BadRequest();
 
-            _productService.DeleteProduct(barcodeId);
+            var product = _unitOfWork.ProductRepository.GetByID(model.Barcode);
+            _unitOfWork.ProductRepository.Delete(product);
+            _unitOfWork.Save();
             return Ok();
-        }
+        }   
     }
 }

@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-E:\SOURCE\Microsoft\WPF\SaleManager\SaleManager.WPF\obj\Debug\
+E:\H\C#\SaleManagerWPFGit\SaleManager.WPF\obj\Debug\
 SaleManager.WPF
 none
 false
 DEBUG;TRACE
-E:\SOURCE\Microsoft\WPF\SaleManager\SaleManager.WPF\App.xaml
-9-1779401788
+E:\H\C#\SaleManagerWPFGit\SaleManager.WPF\App.xaml
+101174826416
 
-311024984799
-73-1517345650
-MainWindow.xaml;Views\Admin\AdminManagerView.xaml;Views\Admin\Customer\CustomerListView.xaml;Views\Admin\Product\ProductCreateView.xaml;Views\Admin\Product\ProductListView.xaml;Views\Default\SaleView.xaml;Views\LoginView.xaml;Views\Template\MenuView.xaml;Views\Template\NavigationBarView.xaml;
+3356854978
+20524923683
+MainWindow.xaml;Views\Admin\AdminManagerView.xaml;Views\Admin\Customer\CustomerListView.xaml;Views\Admin\Product\ProductCreateView.xaml;Views\Admin\Product\ProductListView.xaml;Views\Default\DefaultView.xaml;Views\Default\SaleView.xaml;Views\LoginView.xaml;Views\Template\MenuView.xaml;Views\Template\NavigationBarView.xaml;
 
-False
+True
 
