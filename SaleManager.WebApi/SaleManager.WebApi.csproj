@@ -241,6 +241,7 @@
     <Compile Include="Infrastructures\BarcodeHelper.cs" />
     <Compile Include="Infrastructures\NoContentResult.cs" />
     <Compile Include="Infrastructures\UnityResolver.cs" />
+    <Compile Include="Models\BasePagedModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />

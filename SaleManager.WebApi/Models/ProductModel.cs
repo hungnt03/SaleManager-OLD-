@@ -6,7 +6,7 @@ using System.Web;
 
 namespace SaleManager.WebApi.Models
 {
-    public class ProductCondModel
+    public class ProductCondModel : BasePagedModel
     {
         public string Barcode { get; set; }
         public string Name { get; set; }
@@ -14,6 +14,15 @@ namespace SaleManager.WebApi.Models
         public decimal ToPrice { get; set; }
         public int CategoryId { set; get; }
         public int SupplierId { set; get; }
+        public BasePagedModel GeneratePaged()
+        {
+            BasePagedModel paged = new BasePagedModel();
+            paged.CurrentPage = CurrentPage;
+            paged.PageCount = PageCount;
+            paged.PageSize = PageSize;
+            paged.RowCount = RowCount;
+            return paged;
+        }
     }
     public class ProductModel
     {

@@ -15,7 +15,6 @@ namespace SaleManager.WebApi.DataContext
 
     public partial class Product
     {
-        [Key]
         public string Barcode { get; set; }
         public string Name { get; set; }
         public Nullable<int> Quantity { get; set; }

@@ -9,6 +9,7 @@
 
 namespace SaleManager.WebApi.DataContext
 {
+    using SaleManager.WebApi.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;

@@ -1,4 +1,5 @@
 ﻿using SaleManager.WebApi.DataContext;
+using SaleManager.WebApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -17,6 +18,10 @@ namespace SaleManager.WebApi.Repositories
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "");
+        Task<IEnumerable<TEntity>> GetListPaging(
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            string includeProperties = "", BasePagedModel page=null);
         TEntity GetByID(object id);
         Task<IEnumerable<TEntity>> GetWithRawSql(string query,
             params object[] parameters);
@@ -94,6 +99,36 @@ namespace SaleManager.WebApi.Repositories
         public async Task<IEnumerable<TEntity>> GetWithRawSql(string query, params object[] parameters)
         {
             return await dbSet.SqlQuery(query, parameters).ToListAsync();
+        }
+
+        public async Task<IEnumerable<TEntity>> GetListPaging(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "", BasePagedModel page = null)
+        {
+            IQueryable<TEntity> query = dbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            foreach (var includeProperty in includeProperties.Split
+                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            if(page != null)
+            {
+
+            }
+
+            if (orderBy != null)
+            {
+                return await orderBy(query).Skip((page.CurrentPage - 1) * page.PageSize).Take(page.PageSize).ToListAsync();
+            }
+            else
+            {
+                return await query.Skip((page.CurrentPage - 1) * page.PageSize).Take(page.PageSize).ToListAsync();
+            }
         }
     }
 }
