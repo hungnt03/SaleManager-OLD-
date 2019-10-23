@@ -20,13 +20,14 @@ namespace SaleManager.WebApi.Repositories
             string includeProperties = "");
         Task<IEnumerable<TEntity>> GetListPaging(
             Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "", BasePagedModel page=null);
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, 
+            string includeProperties = "", BasePagedModel page = null);
         TEntity GetByID(object id);
         Task<IEnumerable<TEntity>> GetWithRawSql(string query,
             params object[] parameters);
         void Insert(TEntity entity);
         void Update(TEntity entityToUpdate);
+        BasePagedModel GeneratePaged();
     }
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
@@ -116,19 +117,27 @@ namespace SaleManager.WebApi.Repositories
                 query = query.Include(includeProperty);
             }
 
-            if(page != null)
-            {
-
-            }
-
-            if (orderBy != null)
+            if (orderBy != null && page != null)
             {
                 return await orderBy(query).Skip((page.CurrentPage - 1) * page.PageSize).Take(page.PageSize).ToListAsync();
             }
             else
             {
-                return await query.Skip((page.CurrentPage - 1) * page.PageSize).Take(page.PageSize).ToListAsync();
+                return await query.ToListAsync();
             }
+        }
+
+        public BasePagedModel GeneratePaged()
+        {
+            BasePagedModel paged = new BasePagedModel();
+            IQueryable<TEntity> query = dbSet;
+
+            paged.CurrentPage = 1;
+            var pageSize = 5;
+            var pageCount = (double)query.Count() / pageSize;
+            paged.PageCount = (int)Math.Ceiling(pageCount);
+            paged.RowCount = query.Count();
+            return paged;
         }
     }
 }

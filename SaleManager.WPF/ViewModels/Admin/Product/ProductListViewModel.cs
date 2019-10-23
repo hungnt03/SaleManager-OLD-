@@ -68,7 +68,7 @@ namespace SaleManager.WPF.ViewModels.Admin.Product
         private List<SaleManager.WebApi.Models.ProductModel> GetProducts()
         {
             var client = new RestClient("https://localhost:44313");
-            var request = new RestRequest("api/Products/GetAll", Method.GET);
+            var request = new RestRequest("api/Products/Index", Method.GET);
             var queryResult = client.Execute<List<SaleManager.WebApi.Models.ProductModel>>(request).Data;
             return queryResult;
         }

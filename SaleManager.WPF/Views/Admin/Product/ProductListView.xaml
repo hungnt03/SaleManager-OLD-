@@ -66,5 +66,16 @@
                 IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5">
+            <Button>
+                <materialDesign:PackIcon Kind="NavigateNext" Width="20" Height="20" HorizontalAlignment="Center"/>
+            </Button>
+            <TextBox Text="2" Margin="5,0" Width="30"  TextAlignment="Center"/>
+            <Label Content="Of   123" Margin="0" VerticalAlignment="Bottom"/>
+            <Button>
+                <materialDesign:PackIcon Kind="NavigateNext" Width="20" Height="20" HorizontalAlignment="Center"/>
+            </Button>
+        </StackPanel>
     </StackPanel>
 </UserControl>

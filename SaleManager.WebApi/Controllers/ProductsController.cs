@@ -25,7 +25,8 @@ namespace SaleManager.WebApi.Controllers
         // GET: api/Products
         public async Task<IHttpActionResult> Index(ProductCondModel condition)
         {
-            var results = await _unitOfWork.ProductRepository.GetListPaging(null,s=>s.OrderBy(o=>o.Name),"",condition.GeneratePaged());
+            var results = await _unitOfWork.ProductRepository
+                .GetListPaging(null,s=>s.OrderBy(o=>o.Name),"",condition.GeneratePaged());
 
             if (results == null)
                 return NoContentResult.NotFound("Not found");

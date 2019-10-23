@@ -15,6 +15,7 @@ namespace SaleManager.WPF.Models
         private string _barcode;
         private bool _isPin;
         private bool _isSelected;
+        private PagedModel _paged;
         public ProductModel()
         {
 
@@ -26,6 +27,15 @@ namespace SaleManager.WPF.Models
             CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");
             Price = double.Parse(apiModel.Price.ToString()).ToString("#,###", cul.NumberFormat);
             IsPin = apiModel.Pin==1;
+        }
+        public PagedModel Paged
+        {
+            get { return _paged; }
+            set
+            {
+                _paged = value;
+                OnPropertyChanged("Paged");
+            }
         }
         public bool IsSelected
         {
@@ -104,9 +114,9 @@ namespace SaleManager.WPF.Models
             Barcode = apiModel.Barcode;
             IsPin = apiModel.Pin == 1;
         }
-        public SaleManager.WebApi.Models.ProductInsertModel Generate()
+        public SaleManager.WebApi.Models.ProductModel Generate()
         {
-            var product = new SaleManager.WebApi.Models.ProductInsertModel();
+            var product = new SaleManager.WebApi.Models.ProductModel();
             product.Name = Name;
             product.CategoryId = Category;
             product.Pin = IsPin ? 1 : 0;

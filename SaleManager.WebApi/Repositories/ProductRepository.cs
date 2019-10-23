@@ -83,9 +83,9 @@ namespace SaleManager.WebApi.Repositories
             return await dbSet.SqlQuery(query, parameters).ToListAsync();
         }
 
-        public async Task<IEnumerable<Product>> GetListPaging(Expression<Func<Product, bool>> filter = null, 
-            Func<IQueryable<Product>, IOrderedQueryable<Product>> orderBy = null, string includeProperties = "", 
-            BasePagedModel page = null)
+        public async Task<IEnumerable<Product>> GetListPaging(Expression < Func<Product, bool>> filter = null, 
+            Func<IQueryable<Product>, IOrderedQueryable<Product>> orderBy = null, string includeProperties = "",
+            BasePagedModel page=null)
         {
             IQueryable<Product> query = dbSet;
 
@@ -101,18 +101,29 @@ namespace SaleManager.WebApi.Repositories
             }
 
             if (page != null)
-            {
+                page = GeneratePaged();
 
-            }
-
-            if (orderBy != null)
+            if (orderBy != null && page!=null)
             {
                 return await orderBy(query).Skip((page.CurrentPage - 1) * page.PageSize).Take(page.PageSize).ToListAsync();
             }
             else
             {
-                return await query.Skip((page.CurrentPage - 1) * page.PageSize).Take(page.PageSize).ToListAsync();
+                return await query.ToListAsync();
             }
+        }
+
+        public BasePagedModel GeneratePaged()
+        {
+            BasePagedModel paged = new BasePagedModel();
+            IQueryable<Product> query = dbSet;
+
+            paged.CurrentPage = 1;
+            var pageSize = 5;
+            var pageCount = (double)query.Count() / pageSize;
+            paged.PageCount = (int)Math.Ceiling(pageCount);
+            paged.RowCount = query.Count();
+            return paged;
         }
     }
 }
