@@ -15,7 +15,9 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <materialDesign:PackIcon Kind="KeyboardBackspace" Width="30" Height="30" Margin="5"/>
+                <Button Command="{Binding BackCommand}">
+                    <materialDesign:PackIcon Kind="KeyboardBackspace" Width="20" Height="20"/>
+                </Button>
                 <Label Content="TEST" Grid.Column="1" HorizontalAlignment="Center"/>
                 <materialDesign:PopupBox  Padding="2 0 2 0" Grid.Column="2">
                     <StackPanel>

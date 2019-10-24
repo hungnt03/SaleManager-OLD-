@@ -5,56 +5,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SaleManager.WPF.Utilities;
 
 namespace SaleManager.WPF.ViewModels
 {
     public class MainWindowViewModel : BaseViewModel
     {
-        private IPageViewModel _currentPageViewModel;
-        private Stack<IPageViewModel> _pageViewModels;
-        public Stack<IPageViewModel> PageViewModels
+        private NavigationModel<IPageViewModel> _page;
+        public NavigationModel<IPageViewModel> Page
         {
-            get
-            {
-                if (_pageViewModels == null)
-                    _pageViewModels = new Stack<IPageViewModel>();
-
-                return _pageViewModels;
-            }
-        }
-        public IPageViewModel CurrentPageViewModel
-        {
-            get
-            {
-                return _currentPageViewModel;
-            }
+            get { return _page; }
             set
             {
-                _currentPageViewModel = value;
-                OnPropertyChanged("CurrentPageViewModel");
+                _page = value;
+                OnPropertyChanged("Page");
             }
-        }
-        private void PushViewModel(IPageViewModel viewModel)
-        {
-            if (!PageViewModels.Contains(viewModel))
-                PageViewModels.Push(viewModel);
-
-            CurrentPageViewModel = PageViewModels
-                .FirstOrDefault(vm => vm == viewModel);
-        }
-        private void PopViewModel()
-        {
-            PageViewModels.Pop();
-
-            CurrentPageViewModel = PageViewModels.Peek();
         }
         public MainWindowViewModel()
         {
-            PageViewModels.Push(new LoginView());
-            CurrentPageViewModel = PageViewModels.Peek();
+            _page = new NavigationModel<IPageViewModel>(new LoginView());
 
             Messenger messenger = App.Messenger;
-            messenger.Register(SysConstant.PUSH_SCREEN, (Action<IPageViewModel>)(param => PushViewModel(param)));
+            messenger.Register(SysConstant.PUSH_SCREEN, (Action<IPageViewModel>)(param => Page.Push(param)));
+            messenger.Register(SysConstant.POP_SCREEN, (Action<IPageViewModel>)(param => Page.Pop()));
         }
     }
 }

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 E:\H\C#\SaleManagerWPFGit\SaleManager.WPF\App.xaml
-101174826416
+111680571072
 
-3356854978
-20524923683
-MainWindow.xaml;Views\Admin\AdminManagerView.xaml;Views\Admin\Customer\CustomerListView.xaml;Views\Admin\Product\ProductCreateView.xaml;Views\Admin\Product\ProductListView.xaml;Views\Default\DefaultView.xaml;Views\Default\SaleView.xaml;Views\LoginView.xaml;Views\Template\MenuView.xaml;Views\Template\NavigationBarView.xaml;
+351368082234
+731675102916
+MainWindow.xaml;Views\Admin\AdminManagerView.xaml;Views\Admin\Customer\CustomerCreateView.xaml;Views\Admin\Customer\CustomerListView.xaml;Views\Admin\Product\ProductCreateView.xaml;Views\Admin\Product\ProductListView.xaml;Views\Default\DefaultView.xaml;Views\Default\SaleView.xaml;Views\LoginView.xaml;Views\Template\MenuView.xaml;Views\Template\NavigationBarView.xaml;
 
-True
+False
 

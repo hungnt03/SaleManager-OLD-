@@ -51,12 +51,12 @@ namespace SaleManager.WPF.ViewModels
         }
         public AdminMangerViewModel()
         {
-            PageAdminViewModels.Push(new ProductListView());
-            CurrentPageAdminViewModel = PageAdminViewModels.Peek();
+            //PageAdminViewModels.Push(new ProductListView());
+            CurrentPageAdminViewModel = new ProductListView();
 
-            Messenger messenger = App.Messenger;
-            messenger.Register(SysConstant.PUSH_ADMIN_SCREEN, (Action<IPageViewModel>)(param => PushViewModel(param)));
-            messenger.Register(SysConstant.POP_ADMIN_SCREEN, (Action<IPageViewModel>)(param => PopViewModel()));
+            //Messenger messenger = App.Messenger;
+            //messenger.Register(SysConstant.PUSH_ADMIN_SCREEN, (Action<IPageViewModel>)(param => PushViewModel(param)));
+            //messenger.Register(SysConstant.POP_ADMIN_SCREEN, (Action<IPageViewModel>)(param => PopViewModel()));
         }
     }
 }

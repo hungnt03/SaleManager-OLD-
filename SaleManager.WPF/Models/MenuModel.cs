@@ -11,14 +11,14 @@ namespace SaleManager.WPF.Models
     {
         private string _icon;
         private string _labelName;
-        private UserControl _screenUC;
-        public UserControl ScreenUC
+        private string _screenId;
+        public string ScreenId
         {
-            get { return _screenUC; }
+            get { return _screenId; }
             set
             {
-                _screenUC = value;
-                OnPropertyChanged("ScreenUC");
+                _screenId = value;
+                OnPropertyChanged("ScreenId");
             }
         }
         public string LabelName

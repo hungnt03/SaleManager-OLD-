@@ -24,8 +24,11 @@ namespace SaleManager.WPF.ViewModels
             {
                 _menuSelected = value;
                 OnPropertyChanged("MenuSelected");
-                App.Messenger.NotifyColleagues(SysConstant.POP_ADMIN_SCREEN, null);
-                App.Messenger.NotifyColleagues(SysConstant.PUSH_ADMIN_SCREEN, _menuSelected.ScreenUC);
+                //App.Messenger.NotifyColleagues(SysConstant.POP_ADMIN_SCREEN, null);
+                if(value.ScreenId.Equals("PRODUCT"))
+                    App.Messenger.NotifyColleagues(SysConstant.PUSH_SCREEN, new ProductListView());
+                if (value.ScreenId.Equals("CUSTOMER"))
+                    App.Messenger.NotifyColleagues(SysConstant.PUSH_SCREEN, new CustomerListView());
             }
         }
 
@@ -45,21 +48,19 @@ namespace SaleManager.WPF.ViewModels
             {
                 Icon = "CartMinus",
                 LabelName = "Quản lý sản phẩm",
-                ScreenUC = new ProductListView()
+                ScreenId = "PRODUCT"
+                //ScreenUC = new ProductListView()
             };
             MenuModel customer = new MenuModel()
             {
                 Icon = "CustomerService",
                 LabelName = "Quản lý khách hàng",
-                ScreenUC = new CustomerListView()
+                ScreenId="CUSTOMER"
+                //ScreenUC = new CustomerListView()
             };
             Menus.Add(product);
             Menus.Add(customer);
 
         }
-        //private void Back()
-        //{
-        //    App.Messenger.NotifyColleagues(SysConstant.POP_SCREEN, null);
-        //}
     }
 }

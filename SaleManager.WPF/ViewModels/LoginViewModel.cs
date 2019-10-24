@@ -1,6 +1,8 @@
 ﻿using SaleManager.WPF.Models;
 using SaleManager.WPF.Utilities;
 using SaleManager.WPF.Views.Admin;
+using SaleManager.WPF.Views.Admin.Customer;
+using SaleManager.WPF.Views.Admin.Product;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +34,7 @@ namespace SaleManager.WPF.ViewModels
         }
         private void Login()
         {
-            App.Messenger.NotifyColleagues(SysConstant.PUSH_SCREEN, new AdminManagerView());
+            App.Messenger.NotifyColleagues(SysConstant.PUSH_SCREEN, new CustomerListView());
         }
     }
 }

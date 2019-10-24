@@ -14,17 +14,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SaleManager.WPF.Views.Template
+namespace SaleManager.WPF.Views.Admin.Customer
 {
     /// <summary>
-    /// Interaction logic for NavigationBarView.xaml
+    /// Interaction logic for CustomerCreateView.xaml
     /// </summary>
-    public partial class NavigationBarView : UserControl
+    public partial class CustomerCreateView : UserControl, IPageViewModel
     {
-        public NavigationBarView()
+        public CustomerCreateView()
         {
             InitializeComponent();
-            this.DataContext = new NavigationBarViewModel();
         }
     }
 }

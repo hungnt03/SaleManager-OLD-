@@ -15,7 +15,7 @@ namespace SaleManager.WPF.Models
         private string _barcode;
         private bool _isPin;
         private bool _isSelected;
-        private PagedModel _paged;
+        //private PagedModel _paged;
         public ProductModel()
         {
 
@@ -28,15 +28,15 @@ namespace SaleManager.WPF.Models
             Price = double.Parse(apiModel.Price.ToString()).ToString("#,###", cul.NumberFormat);
             IsPin = apiModel.Pin==1;
         }
-        public PagedModel Paged
-        {
-            get { return _paged; }
-            set
-            {
-                _paged = value;
-                OnPropertyChanged("Paged");
-            }
-        }
+        //public PagedModel Paged
+        //{
+        //    get { return _paged; }
+        //    set
+        //    {
+        //        _paged = value;
+        //        OnPropertyChanged("Paged");
+        //    }
+        //}
         public bool IsSelected
         {
             get { return _isSelected; }

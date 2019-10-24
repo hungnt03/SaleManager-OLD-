@@ -7,24 +7,32 @@
              xmlns:cvt="clr-namespace:SaleManager.WPF.Utilities.Converters"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:controls="clr-namespace:SaleManager.WPF.Views.Template"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <cvt:MoneyConverter x:Key="moneyConverter"/>
     </UserControl.Resources>
-    <StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,5">
-            <Button Style="{StaticResource MaterialDesignRaisedButton}" Width="70" Margin="5,0,5,0"
+    <DockPanel>
+        <controls:NavigationBarView DockPanel.Dock="Top" />
+        <controls:MenuView DockPanel.Dock="Left" />
+        <Grid DockPanel.Dock="Right">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="217*"/>
+                <RowDefinition Height="233*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.RowSpan="2">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,5">
+                    <Button Style="{StaticResource MaterialDesignRaisedButton}" Width="70" Margin="5,0,5,0"
                     HorizontalAlignment="Right" 
                     Command="{Binding AddProductCommand}">
-                <materialDesign:PackIcon Kind="ShoppingCartPlus" Height="25" Width="25"/>
-            </Button>
-            <Button Style="{StaticResource MaterialDesignRaisedButton}" Width="70" HorizontalAlignment="Right" Margin="5,0,5,0" Background="#c62828">
-                <materialDesign:PackIcon Kind="Delete" Height="25" Width="25"/>
-            </Button>
-        </StackPanel>
-        
-        <DataGrid
+                        <materialDesign:PackIcon Kind="ShoppingCartPlus" Height="25" Width="25"/>
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignRaisedButton}" Width="70" HorizontalAlignment="Right" Margin="5,0,5,0" Background="#c62828">
+                        <materialDesign:PackIcon Kind="Delete" Height="25" Width="25"/>
+                    </Button>
+                </StackPanel>
+                <DataGrid
         ItemsSource="{Binding Products}"
         SelectedItem="{Binding ProductSelected}"
         CanUserSortColumns="True"
@@ -32,50 +40,52 @@
         AutoGenerateColumns="False"
         materialDesign:DataGridAssist.CellPadding="13 8 8 8"
         materialDesign:DataGridAssist.ColumnHeaderPadding="8">
-            <DataGrid.Columns>
-                <DataGridCheckBoxColumn
+                    <DataGrid.Columns>
+                        <DataGridCheckBoxColumn
                 Binding="{Binding IsSelected}"
                 ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
                 EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}">
-                    <DataGridCheckBoxColumn.Header>
-                        <!--padding to allow hit test to pass thru for sorting -->
-                        <Border Background="Transparent" Padding="6 0 6 0" HorizontalAlignment="Center">
-                            <CheckBox HorizontalAlignment="Center" 
+                            <DataGridCheckBoxColumn.Header>
+                                <!--padding to allow hit test to pass thru for sorting -->
+                                <Border Background="Transparent" Padding="6 0 6 0" HorizontalAlignment="Center">
+                                    <CheckBox HorizontalAlignment="Center" 
                                   DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext}"
                                   IsChecked="{Binding IsAllItemsSelected}" />
-                        </Border>
-                    </DataGridCheckBoxColumn.Header>
-                </DataGridCheckBoxColumn>
-                <DataGridTextColumn
+                                </Border>
+                            </DataGridCheckBoxColumn.Header>
+                        </DataGridCheckBoxColumn>
+                        <DataGridTextColumn
                 Binding="{Binding Name}"
                 Header="Tên sản phẩm" 
                 IsReadOnly="True"/>
-                <!-- if you want to use the pop up style (MaterialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn -->
-                <materialDesign:MaterialDataGridTextColumn
+                        <!-- if you want to use the pop up style (MaterialDesignDataGridTextColumnPopupEditingStyle), you must use MaterialDataGridTextColumn -->
+                        <materialDesign:MaterialDataGridTextColumn
                 Binding="{Binding Quantity}"
                 Header="Số luợng" 
                 IsReadOnly="True"/>
-                <!-- set a max length to get an indicator in the editor -->
-                <materialDesign:MaterialDataGridTextColumn
+                        <!-- set a max length to get an indicator in the editor -->
+                        <materialDesign:MaterialDataGridTextColumn
                 Binding="{Binding Price}"
                 Header="Giá"
                 IsReadOnly="True"/>
-                <materialDesign:MaterialDataGridTextColumn
+                        <materialDesign:MaterialDataGridTextColumn
                 Binding="{Binding Barcode}"
                 Header="Barcode"
                 IsReadOnly="True"/>
-            </DataGrid.Columns>
-        </DataGrid>
+                    </DataGrid.Columns>
+                </DataGrid>
 
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5">
-            <Button>
-                <materialDesign:PackIcon Kind="NavigateNext" Width="20" Height="20" HorizontalAlignment="Center"/>
-            </Button>
-            <TextBox Text="2" Margin="5,0" Width="30"  TextAlignment="Center"/>
-            <Label Content="Of   123" Margin="0" VerticalAlignment="Bottom"/>
-            <Button>
-                <materialDesign:PackIcon Kind="NavigateNext" Width="20" Height="20" HorizontalAlignment="Center"/>
-            </Button>
-        </StackPanel>
-    </StackPanel>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5">
+                    <Button>
+                        <materialDesign:PackIcon Kind="NavigateNext" Width="20" Height="20" HorizontalAlignment="Center"/>
+                    </Button>
+                    <TextBox Text="2" Margin="5,0" Width="30"  TextAlignment="Center"/>
+                    <Label Content="Of   123" Margin="0" VerticalAlignment="Bottom"/>
+                    <Button>
+                        <materialDesign:PackIcon Kind="NavigateNext" Width="20" Height="20" HorizontalAlignment="Center"/>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
 </UserControl>

@@ -24,18 +24,7 @@ namespace SaleManager.WPF.Views.Template
         public MenuView()
         {
             InitializeComponent();
-            List<Person> persons = new List<Person>();
-            persons.Add(new Person() { Age = 10, Name = "Yin", Icon= "AboutOutline" });
-            persons.Add(new Person() { Age = 11, Name = "Yang", Icon = "AccessPoint" });
-            persons.Add(new Person() { Age = 12, Name = "Yo", Icon = "AllInclusive" });
-
             this.DataContext = new MenuViewModel();
         }
-    }
-    public class Person
-    {
-        public int Age { get; set; }
-        public string Name { get; set; }
-        public string Icon { set; get; }
     }
 }

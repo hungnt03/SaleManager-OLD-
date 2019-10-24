@@ -2,6 +2,7 @@
 using SaleManager.WPF.Models;
 using SaleManager.WPF.Utilities;
 using SaleManager.WPF.Views.Admin.Product;
+using SaleManager.WPF.Views.Template;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,6 +19,7 @@ namespace SaleManager.WPF.ViewModels.Admin.Product
         public ObservableCollection<ProductModel> Products { set; get; }
         private bool _isAllItemsSelected { set; get; }
         public ICommand AddProductCommand { set; get; }
+        public IPageViewModel MenuPage { set; get; }
         public ProductModel ProductSelected
         {
             get { return _productSelected; }
@@ -60,6 +62,8 @@ namespace SaleManager.WPF.ViewModels.Admin.Product
                 (l) => true,
                 (l) => NavigateAddProduct()
             );
+
+            MenuPage = new MenuView();
         }
         public void NavigateAddProduct()
         {

@@ -79,11 +79,13 @@
     <Compile Include="Utilities\Converters\MoneyConverter.cs" />
     <Compile Include="Utilities\Messenger.cs" />
     <Compile Include="Utilities\RelayCommand.cs" />
+    <Compile Include="ViewModels\NavigationModel.cs" />
     <Compile Include="Utilities\SysConstant.cs" />
     <Compile Include="ViewModels\AdminMangerViewModel.cs" />
     <Compile Include="ViewModels\Admin\Product\ProductCreateViewModel.cs" />
     <Compile Include="ViewModels\Admin\Product\ProductListViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\IPage.cs" />
     <Compile Include="ViewModels\IPageViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -91,6 +93,9 @@
     <Compile Include="ViewModels\NavigationBarViewModel.cs" />
     <Compile Include="Views\Admin\AdminManagerView.xaml.cs">
       <DependentUpon>AdminManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\Customer\CustomerCreateView.xaml.cs">
+      <DependentUpon>CustomerCreateView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\Customer\CustomerListView.xaml.cs">
       <DependentUpon>CustomerListView.xaml</DependentUpon>
@@ -129,6 +134,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\Admin\AdminManagerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\Customer\CustomerCreateView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
